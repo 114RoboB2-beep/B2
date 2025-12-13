@@ -1,0 +1,133 @@
+Integer Tokens
+Integer Blocks
+Double TokenHeight
+Double BlockHeight
+Integer TokenID
+Integer BlockID
+Integer StackNum
+
+Function main
+    Motor On
+    Power High
+    Speed 35
+    Accel 40, 40
+    SpeedS 500
+    AccelS 5000
+    Tool 1
+
+    ' 初始設定
+    Tokens = 0       ' 假設料倉有 3 個 (ID 2,1,0)
+    Blocks = 0       ' 假設料倉有 3 個 (ID 2,1,0)
+    StackNum = 0
+    TokenHeight = 6.0
+    BlockHeight = 6.0
+
+	' --- Mod based on the number of tokens needed ---
+	' Original is three each
+	startPickCir = startPickCir -Z(TokenHeight * 7)
+	startPickRec = startPickRec -Z(BlockHeight * 7)
+	Nettral = Nettral +Z(20)
+	
+	Begining:
+    ' Check Start Button (Sw0)
+    If Sw(0) <> On Then
+        Wait 0.1
+        GoTo Begining
+    EndIf
+
+    Go Nettral
+    TmReset 0
+    ' --- 修改迴圈邏輯：改成成對夾取與堆疊 ---
+    ' 我們以 TokenID 為主迴圈，每次執行一組 (Token + Block)
+    For BlockID = Blocks To 9 Step +1
+        
+        ' Step 1: 夾取並放置 Token (底層)
+        Pick_Infeed_Token()
+        
+        Place_Stack_Token() ' 新寫的放置函式
+
+        ' Step 2: 夾取並堆疊 Block (上層)
+        Pick_Infeed_Block()
+        
+        Place_Stack_Block() ' 新寫的堆疊函式
+        
+    Next BlockID
+
+    Go Nettral
+    Print "--------------------------------"
+    Print "Cycle Complete."
+    Print "Total Running Time: ", Tmr(0), " seconds"
+    Print "--------------------------------"
+    
+Fend
+'--- function start ---
+
+Function Pick_Infeed_Token
+	'Pick Token from Infeed
+	Print "Picking Token from Infeed. Token ID = ", Tokens
+	Go startPickCir -Z(30) CP
+	Move startPickCir +Z(Tokens * TokenHeight + 0.25)
+	On 8
+	Wait .35
+	Move startPickCir -Z(45)
+Fend
+
+Function Pick_Infeed_Block
+	'Pick Block from Infeed
+	Print "Picking Block from Infeed. Block ID = ", Blocks
+	Go startPickRec -Z(30) CP
+	Move startPickRec +Z(Blocks * BlockHeight + 0.25)
+	On 8
+	Wait .35
+	Move startPickRec -Z(45)
+Fend
+'--- 以下是修改的放置 Function ---
+
+Function Place_Stack_Token
+    ' 將 Token 放在距離 startPickRec X(30) 的地板上
+    ' 假設放置點的 Z=0 是桌面
+    
+    Print "Placing Token to Stack Base."
+    Print "Current Stack Number: ", StackNum
+    
+    ' 1. 快速移動到目標上方安全點 (以 startPickRec 為基準往 X+30)
+    Go stackZ0 +Z(10 + (StackNum * TokenHeight)) CP
+    
+    ' 2. 垂直下降放置 (Z=0 代表貼地，視實際點位高度調整)
+    Move stackZ0 +Z((StackNum + 1) * TokenHeight)
+    
+    Off 8
+    'Wait .5
+    
+    ' 3. 上升離開
+    Go stackZ0 +Z(StackNum * BlockHeight + 10)
+    
+    ' 扣掉庫存計數
+    Tokens = Tokens + 1
+    StackNum = StackNum + 1
+Fend
+
+Function Place_Stack_Block
+    ' 將 Block 疊在 Token 上面
+    ' 重點：放置高度 Z 必須包含下方 Token 的厚度 (TokenHeight)
+    
+    Print "Stacking Block on top of Token."
+    Print "Current Stack Number: ", StackNum
+    
+    ' 1. 移動到目標上方安全點
+    Go stackZ0 +Z(10 + (StackNum * BlockHeight)) CP
+    
+    ' 2. 垂直下降放置
+    ' 注意：這裡的 Z 是 TokenHeight (6.0)，因為下面已經有一顆 Token 了
+    Move stackZ0 +Z((StackNum + 1) * BlockHeight)
+    
+    Off 8
+    'Wait .5
+    
+    ' 3. 上升離開
+    Go stackZ0 +Z(StackNum * BlockHeight + 10)
+    
+    ' 扣掉庫存計數
+    Blocks = Blocks + 1
+    StackNum = StackNum + 1
+Fend

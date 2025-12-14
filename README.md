@@ -9,7 +9,7 @@ E11402003 Gaetan SOUDEE <br>
 ### Reference
 - EPSON robot: https://github.com/iiotntust/1121robot
 - Jetbot: https://jetbot.org/master/
-### Programs used
+### Useful Programs
 * [Epson RC+ v5.0](https://epson.com/Support/Robots/Software/Epson-RC%2B-5-0/s/SPT_R12NZ920C6)
 * [Epson RC+ v7.0](https://epson.com/Support/Robots/Software/Epson-RC%2B-7-0/s/SPT_R12N793031)
 * [Autodesk Software](https://www.autodesk.com/education/edu-software/overview?sorting=featured&filters=class-lab)

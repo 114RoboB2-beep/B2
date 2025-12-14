@@ -15,9 +15,9 @@ Function main
     AccelS 5000
     Tool 1
 
-    ' ªì©l³]©w
-    Tokens = 0       ' °²³]®Æ­Ü¦³ 3 ­Ó (ID 2,1,0)
-    Blocks = 0       ' °²³]®Æ­Ü¦³ 3 ­Ó (ID 2,1,0)
+    ' ï¿½ï¿½lï¿½]ï¿½w
+    Tokens = 0       ' ï¿½ï¿½ï¿½]ï¿½Æ­Ü¦ï¿½ 3 ï¿½ï¿½ (ID 2,1,0)
+    Blocks = 0       ' ï¿½ï¿½ï¿½]ï¿½Æ­Ü¦ï¿½ 3 ï¿½ï¿½ (ID 2,1,0)
     StackNum = 0
     TokenHeight = 6.0
     BlockHeight = 6.0
@@ -37,19 +37,19 @@ Function main
 
     Go Nettral
     TmReset 0
-    ' --- ­×§ï°j°éÅÞ¿è¡G§ï¦¨¦¨¹ï§¨¨ú»P°ïÅ| ---
-    ' §Ú­Ì¥H TokenID ¬°¥D°j°é¡A¨C¦¸°õ¦æ¤@²Õ (Token + Block)
+    ' --- ï¿½×§ï¿½jï¿½ï¿½ï¿½Þ¿ï¿½Gï¿½ï¦¨ï¿½ï¿½ï¿½ï§¨ï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½| ---
+    ' ï¿½Ú­Ì¥H TokenID ï¿½ï¿½ï¿½Dï¿½jï¿½ï¿½Aï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ (Token + Block)
     For BlockID = Blocks To 9 Step +1
         
-        ' Step 1: §¨¨ú¨Ã©ñ¸m Token (©³¼h)
+        ' Step 1: ï¿½ï¿½ï¿½ï¿½ï¿½Ã©ï¿½m Token (ï¿½ï¿½ï¿½h)
         Pick_Infeed_Token()
         
-        Place_Stack_Token() ' ·s¼gªº©ñ¸m¨ç¦¡
+        Place_Stack_Token() ' ï¿½sï¿½gï¿½ï¿½ï¿½ï¿½mï¿½ç¦¡
 
-        ' Step 2: §¨¨ú¨Ã°ïÅ| Block (¤W¼h)
+        ' Step 2: ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½| Block (ï¿½Wï¿½h)
         Pick_Infeed_Block()
         
-        Place_Stack_Block() ' ·s¼gªº°ïÅ|¨ç¦¡
+        Place_Stack_Block() ' ï¿½sï¿½gï¿½ï¿½ï¿½ï¿½ï¿½|ï¿½ç¦¡
         
     Next BlockID
 
@@ -81,53 +81,53 @@ Function Pick_Infeed_Block
 	Wait .35
 	Move startPickRec -Z(45)
 Fend
-'--- ¥H¤U¬O­×§ïªº©ñ¸m Function ---
+'--- ï¿½Hï¿½Uï¿½Oï¿½×§ïªºï¿½ï¿½m Function ---
 
 Function Place_Stack_Token
-    ' ±N Token ©ñ¦b¶ZÂ÷ startPickRec X(30) ªº¦aªO¤W
-    ' °²³]©ñ¸mÂIªº Z=0 ¬O®à­±
+    ' ï¿½N Token ï¿½ï¿½bï¿½Zï¿½ï¿½ startPickRec X(30) ï¿½ï¿½ï¿½aï¿½Oï¿½W
+    ' ï¿½ï¿½ï¿½]ï¿½ï¿½mï¿½Iï¿½ï¿½ Z=0 ï¿½Oï¿½à­±
     
     Print "Placing Token to Stack Base."
     Print "Current Stack Number: ", StackNum
     
-    ' 1. §Ö³t²¾°Ê¨ì¥Ø¼Ð¤W¤è¦w¥þÂI (¥H startPickRec ¬°°ò·Ç©¹ X+30)
+    ' 1. ï¿½Ö³tï¿½ï¿½ï¿½Ê¨ï¿½Ø¼Ð¤Wï¿½ï¿½wï¿½ï¿½ï¿½I (ï¿½H startPickRec ï¿½ï¿½ï¿½ï¿½Ç©ï¿½ X+30)
     Go stackZ0 +Z(10 + (StackNum * TokenHeight)) CP
     
-    ' 2. ««ª½¤U­°©ñ¸m (Z=0 ¥Nªí¶K¦a¡Aµø¹ê»ÚÂI¦ì°ª«×½Õ¾ã)
+    ' 2. ï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½ï¿½m (Z=0 ï¿½Nï¿½ï¿½ï¿½Kï¿½aï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ì°ªï¿½×½Õ¾ï¿½)
     Move stackZ0 +Z((StackNum + 1) * TokenHeight)
     
     Off 8
     'Wait .5
     
-    ' 3. ¤W¤ÉÂ÷¶}
+    ' 3. ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½}
     Go stackZ0 +Z(StackNum * BlockHeight + 10)
     
-    ' ¦©±¼®w¦s­p¼Æ
+    ' ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½sï¿½pï¿½ï¿½
     Tokens = Tokens + 1
     StackNum = StackNum + 1
 Fend
 
 Function Place_Stack_Block
-    ' ±N Block Å|¦b Token ¤W­±
-    ' ­«ÂI¡G©ñ¸m°ª«× Z ¥²¶·¥]§t¤U¤è Token ªº«p«× (TokenHeight)
+    ' ï¿½N Block ï¿½|ï¿½b Token ï¿½Wï¿½ï¿½
+    ' ï¿½ï¿½ï¿½Iï¿½Gï¿½ï¿½mï¿½ï¿½ï¿½ï¿½ Z ï¿½ï¿½ï¿½ï¿½ï¿½]ï¿½tï¿½Uï¿½ï¿½ Token ï¿½ï¿½ï¿½pï¿½ï¿½ (TokenHeight)
     
     Print "Stacking Block on top of Token."
     Print "Current Stack Number: ", StackNum
     
-    ' 1. ²¾°Ê¨ì¥Ø¼Ð¤W¤è¦w¥þÂI
+    ' 1. ï¿½ï¿½ï¿½Ê¨ï¿½Ø¼Ð¤Wï¿½ï¿½wï¿½ï¿½ï¿½I
     Go stackZ0 +Z(10 + (StackNum * BlockHeight)) CP
     
-    ' 2. ««ª½¤U­°©ñ¸m
-    ' ª`·N¡G³o¸Ìªº Z ¬O TokenHeight (6.0)¡A¦]¬°¤U­±¤w¸g¦³¤@Áû Token ¤F
+    ' 2. ï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½ï¿½m
+    ' ï¿½`ï¿½Nï¿½Gï¿½oï¿½Ìªï¿½ Z ï¿½O TokenHeight (6.0)ï¿½Aï¿½]ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½wï¿½gï¿½ï¿½ï¿½@ï¿½ï¿½ Token ï¿½F
     Move stackZ0 +Z((StackNum + 1) * BlockHeight)
     
     Off 8
     'Wait .5
     
-    ' 3. ¤W¤ÉÂ÷¶}
+    ' 3. ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½}
     Go stackZ0 +Z(StackNum * BlockHeight + 10)
     
-    ' ¦©±¼®w¦s­p¼Æ
+    ' ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½sï¿½pï¿½ï¿½
     Blocks = Blocks + 1
     StackNum = StackNum + 1
 Fend

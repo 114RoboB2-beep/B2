@@ -3,8 +3,8 @@ SystemProperties {
 	sRC50Version="5.4.7"
 	sGUID="2be7da17-ecad-48cf-ad74-945df83b24e2"
 	bSimple=False
-	sCreated="2019/8/13 ¤W¤È 11:47:18"
-	sLastModified="2025/12/2 ¤U¤È 04:50:21"
+	sCreated="2019/8/13 ï¿½Wï¿½ï¿½ 11:47:18"
+	sLastModified="2025/12/2 ï¿½Uï¿½ï¿½ 04:50:21"
 	bBuildComplete=False
 	bRebuildRequired=False
 	bClearControllerProject=False
@@ -30,13 +30,13 @@ ProgramFile1 {
 	sName="Main.prg"
 	bCompiled=False
 	bStoreInController=True
-	sTimeSavedInController="2025/12/2 ¤W¤È 08:48:26"
+	sTimeSavedInController="2025/12/2 ï¿½Wï¿½ï¿½ 08:48:26"
 }
 nIncludeFileCount=0
 nPointFileCount=1
 PointFile1 {
 	sName="Points.pts"
-	sTimeSavedInController="2025/12/2 ¤W¤È 08:49:12"
+	sTimeSavedInController="2025/12/2 ï¿½Wï¿½ï¿½ 08:49:12"
 }
 OperatorSettings {
 	OperatorWindow {

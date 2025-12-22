@@ -37,7 +37,6 @@ Function RobotJob
         GoTo Begining
     EndIf
     
-    ' Check for typo in your original code: "Nettral" -> "Neutral"
     Go Nettral
    	TmReset 0
     ' --- Token Cycle ---

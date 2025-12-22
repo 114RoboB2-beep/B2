@@ -15,9 +15,9 @@ Function main
     AccelS 5000
     Tool 1
 
-    ' ��l�]�w
-    Tokens = 0       ' ���]�ƭܦ� 3 �� (ID 2,1,0)
-    Blocks = 0       ' ���]�ƭܦ� 3 �� (ID 2,1,0)
+    ' Initialize Variables
+    Tokens = 0
+    Blocks = 0
     StackNum = 0
     TokenHeight = 6.0
     BlockHeight = 6.0
@@ -37,19 +37,20 @@ Function main
 
     Go Nettral
     TmReset 0
-    ' --- �ק�j���޿�G�令���裡���P���| ---
-    ' �ڭ̥H TokenID ���D�j��A�C������@�� (Token + Block)
+    ' --- Stacking Cycle ---
     For BlockID = Blocks To 9 Step +1
         
-        ' Step 1: �����é�m Token (���h)
+        ' Step 1: Pick Up Token
         Pick_Infeed_Token()
-        
-        Place_Stack_Token() ' �s�g����m�禡
 
-        ' Step 2: �����ð��| Block (�W�h)
+        ' Place it on the stacking point
+        Place_Stack_Token() 
+
+        ' Step 2: Pick Up Block
         Pick_Infeed_Block()
         
-        Place_Stack_Block() ' �s�g�����|�禡
+        ' Place it on the stacking point
+        Place_Stack_Block()
         
     Next BlockID
 
@@ -60,8 +61,8 @@ Function main
     Print "--------------------------------"
     
 Fend
-'--- function start ---
 
+'--- Functions Start ---
 Function Pick_Infeed_Token
 	'Pick Token from Infeed
 	Print "Picking Token from Infeed. Token ID = ", Tokens
@@ -81,53 +82,49 @@ Function Pick_Infeed_Block
 	Wait .35
 	Move startPickRec -Z(45)
 Fend
-'--- �H�U�O�ק諸��m Function ---
 
 Function Place_Stack_Token
-    ' �N Token ��b�Z�� startPickRec X(30) ���a�O�W
-    ' ���]��m�I�� Z=0 �O�ୱ
+    ' Set Tokens Down
     
     Print "Placing Token to Stack Base."
     Print "Current Stack Number: ", StackNum
     
-    ' 1. �ֳt���ʨ�ؼФW��w���I (�H startPickRec ����ǩ� X+30)
+    ' 1. Go directly above the stacking point
     Go stackZ0 +Z(10 + (StackNum * TokenHeight)) CP
     
-    ' 2. �����U����m (Z=0 �N���K�a�A������I�찪�׽վ�)
+    ' 2. Move straight down
     Move stackZ0 +Z((StackNum + 1) * TokenHeight)
     
     Off 8
     'Wait .5
     
-    ' 3. �W�����}
+    ' 3. Lift up arm
     Go stackZ0 +Z(StackNum * BlockHeight + 10)
     
-    ' �����w�s�p��
+    ' Increment token counter
     Tokens = Tokens + 1
     StackNum = StackNum + 1
 Fend
 
 Function Place_Stack_Block
-    ' �N Block �|�b Token �W��
-    ' ���I�G��m���� Z �����]�t�U�� Token ���p�� (TokenHeight)
-    
+    ' Set Blocks Down
+
     Print "Stacking Block on top of Token."
     Print "Current Stack Number: ", StackNum
     
-    ' 1. ���ʨ�ؼФW��w���I
+    ' 1. Go directly above the stacking point
     Go stackZ0 +Z(10 + (StackNum * BlockHeight)) CP
     
-    ' 2. �����U����m
-    ' �`�N�G�o�̪� Z �O TokenHeight (6.0)�A�]���U���w�g���@�� Token �F
+    ' 2. Move straight down
     Move stackZ0 +Z((StackNum + 1) * BlockHeight)
     
     Off 8
     'Wait .5
     
-    ' 3. �W�����}
+    ' 3. Lift up arm
     Go stackZ0 +Z(StackNum * BlockHeight + 10)
-    
-    ' �����w�s�p��
+
+    ' Increment block counter
     Blocks = Blocks + 1
     StackNum = StackNum + 1
 Fend
